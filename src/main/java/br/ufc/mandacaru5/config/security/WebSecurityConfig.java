@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) {
-		web.ignoring().antMatchers("/api/posts/**").antMatchers(HttpMethod.OPTIONS, "/oauth/token")
+		web.ignoring().antMatchers("/api/posts/**").antMatchers("/api/login/**").antMatchers("/api/roles/**").antMatchers(HttpMethod.OPTIONS, "/oauth/token")
 				.antMatchers("/v3/api-docs/**").antMatchers("/swagger-ui/**").antMatchers("/swagger-ui.html");
 	}
 

@@ -16,12 +16,14 @@ import javax.persistence.SequenceGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Login implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "login_generator")
-	@SequenceGenerator(name="login_generator", sequenceName = "login_seq", allocationSize=1)
+	@SequenceGenerator(name = "login_generator", sequenceName = "login_seq", allocationSize = 1)
 	private int id;
 	@Column(nullable = false, unique = true)
 	private String email;
@@ -33,6 +35,7 @@ public class Login implements UserDetails {
 	private List<Role> roles;
 
 	@Override
+	@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		return roles;
@@ -45,6 +48,7 @@ public class Login implements UserDetails {
 	}
 
 	@Override
+	@JsonIgnore
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return email;
@@ -78,6 +82,24 @@ public class Login implements UserDetails {
 	public String toString() {
 		return "Login [id=" + id + ", email=" + email + ", password=" + password + ", roles=" + roles + "]";
 	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
 	
+	public int getId() {
+		return id;
+	}
 	
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+	
+	public List<Role> getRoles() {
+		return roles;
+	}
 }
